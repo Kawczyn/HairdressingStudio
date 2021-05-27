@@ -1,4 +1,8 @@
+using FluentValidation.AspNetCore;
 using HairdressingStudio.DatabaseContext;
+using HairdressingStudio.Services;
+using HairdressingStudio.Services.Interfaces;
+using HairdressingStudio.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,9 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace HairdressingStudio
@@ -44,6 +50,25 @@ namespace HairdressingStudio
                     .AllowAnyHeader());
             });
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddControllers().AddFluentValidation(opt =>
+            {
+                opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            });
+
+
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HairdressingStudioApi", Version = "v1" });
+            });
+            services.AddControllers();
+
+            services.AddScoped<IStylistsData, StylistsData>();
+            services.AddScoped<IHairdressingServicesData, HairdressingServicesData>();
+            services.AddScoped<IStylistsWorkingHoursData, StylistsWorkingHoursData>();
+            services.AddScoped<IListOfAvailableDates, ListOfAvailableDates>();
+            services.AddScoped<IClientsData, ClientsData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +76,16 @@ namespace HairdressingStudio
         {
             if (env.IsDevelopment())
             {
+
                 app.UseDeveloperExceptionPage();
+                // middleware który doda Swagger JSON
+                app.UseSwagger();
+                // middleware do swagger-ui (HTML, JS, CSS, etc.),
+                // tutaj okreœlasz endpoint dla Swagger JSON
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "HairdressingStudioApi v1");
+                });
             }
 
             app.UseHttpsRedirection();

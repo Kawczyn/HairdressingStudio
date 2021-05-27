@@ -32,7 +32,7 @@ namespace HairdressingStudio.DatabaseContext
             modelBuilder.Entity<Stylists>().Property(i => i.FirstName).IsRequired();
             modelBuilder.Entity<Stylists>().Property(i => i.FirstName).HasMaxLength(50);
             modelBuilder.Entity<Stylists>().Property(i => i.LastName).HasMaxLength(50);
-            modelBuilder.Entity<Stylists>().Property(i => i.IsActive).HasDefaultValue(false);
+            modelBuilder.Entity<Stylists>().Property(i => i.IsActive).HasDefaultValue(true);
 
             modelBuilder.Entity<HairdressingServices>().ToTable("HairdressingServices", "Studio");
             modelBuilder.Entity<HairdressingServices>().HasKey(i => i.Id);
@@ -40,7 +40,7 @@ namespace HairdressingStudio.DatabaseContext
             modelBuilder.Entity<HairdressingServices>().Property(i => i.Name).HasMaxLength(150);
             modelBuilder.Entity<HairdressingServices>().Property(i => i.IsCombining).HasDefaultValue(false);
             modelBuilder.Entity<HairdressingServices>().Property(i => i.ServiceTime).IsRequired();
-            modelBuilder.Entity<HairdressingServices>().Property(i => i.IsActive).HasDefaultValue(false);
+            modelBuilder.Entity<HairdressingServices>().Property(i => i.IsActive).HasDefaultValue(true);
 
             modelBuilder.Entity<Clients>().ToTable("Clients", "Studio");
             modelBuilder.Entity<Clients>().HasKey(i => i.Id);

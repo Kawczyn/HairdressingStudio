@@ -11,7 +11,7 @@ namespace HairdressingStudio.DatabaseContext
     {
         public List<StylistsWorkingHours> Generate()
         {
-            DateTime newDate = new DateTime(2021, 04, 01, 00, 00, 00);
+            DateTime newDate = new DateTime(2021, 05, 01, 00, 00, 00);
 
             int firstId = 1;
             int secondId = 2;
@@ -19,7 +19,7 @@ namespace HairdressingStudio.DatabaseContext
 
             var workingHours = new List<StylistsWorkingHours>();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 150; i++)
             {
                 string dzienTygodnia = newDate.ToString("dddd", new CultureInfo("pl-PL"));
                 switch (dzienTygodnia)

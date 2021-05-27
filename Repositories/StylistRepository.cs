@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HairdressingStudio.Repository
+namespace HairdressingStudio.Repositories
 {
     public class StylistRepository
     {

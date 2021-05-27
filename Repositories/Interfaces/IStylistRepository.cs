@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HairdressingStudio.Repository
+namespace HairdressingStudio.Repositories.Interfaces
 {
     interface IStylistRepository<TEntity>
     {
-        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAllStylists();
 
     }
 }
